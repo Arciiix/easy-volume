@@ -1,0 +1,22 @@
+{
+  "name": "easy-volume",
+  "version": "1.0.0",
+  "description": "The easiest way to get and control your system's volume is finally here",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["/dist"],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "volume",
+    "control",
+    "loudness",
+    "speaker"
+  ],
+  "author": "Arciiix",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}

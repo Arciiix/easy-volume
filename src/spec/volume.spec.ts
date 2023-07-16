@@ -1,5 +1,5 @@
 import { assert } from "console";
-import { getVolume, setVolume } from "..";
+import { getMute, getVolume, setMute, setVolume } from "..";
 import { SetVolumeError } from "../types";
 
 describe("volume", () => {
@@ -30,5 +30,18 @@ describe("volume", () => {
   });
   it("sets volume back to normal", async () => {
     await setVolume(oldVolume);
+  });
+  it("mutes", async () => {
+    await setMute(true);
+  });
+  it("gets mute status properly", async () => {
+    const muteStatus = await getMute();
+    // Since the previous test is muting, it should be true
+    expect(muteStatus).toBe(true);
+  });
+  it("unmutes properly", async () => {
+    await setMute(false);
+    const status = await getMute();
+    expect(status).toBe(false);
   });
 });

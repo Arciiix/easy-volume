@@ -1,5 +1,5 @@
 import * as os from "os";
-import { PlatformImplementation } from "./types";
+import { PlatformImplementation, VolumeControl } from "./types";
 import { windows } from "./platforms/windows";
 
 const osType = os.type();
@@ -16,5 +16,13 @@ switch (osType.toLowerCase()) {
     );
 }
 
-const { getVolume, setVolume } = universal;
-export { getVolume, setVolume };
+const { getVolume, setVolume, getMute, setMute, toggleMute }: VolumeControl = {
+  ...universal,
+  toggleMute: async () => {
+    const currentState = await getMute();
+    await setMute(!currentState);
+    return !currentState;
+  },
+};
+
+export { getVolume, setVolume, getMute, setMute, toggleMute };

@@ -26,4 +26,17 @@ export const windows: PlatformImplementation = {
     if (isNaN(parseInt(response)) || parseInt(response) === -1)
       throw new SetVolumeError();
   },
+  getMute: async () => {
+    const response = await execCommand(join(__dirname, "volume.exe"), [
+      "mute_status",
+    ]);
+
+    let isMuted = response !== "0";
+    return isMuted;
+  },
+  setMute: async (isMuted: boolean) => {
+    await execCommand(join(__dirname, "volume.exe"), [
+      isMuted ? "mute" : "unmute",
+    ]);
+  },
 };

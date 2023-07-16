@@ -96,6 +96,168 @@ void SetSystemVolume(float volume)
     }
 }
 
+bool IsSystemAudioMuted()
+{
+    CoInitialize(nullptr);
+
+    IMMDeviceEnumerator *pEnumerator = nullptr;
+    IMMDevice *pDevice = nullptr;
+    IAudioEndpointVolume *pEndpointVolume = nullptr;
+
+    // Create the device enumerator
+    HRESULT hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
+    if (FAILED(hr))
+    {
+        CoUninitialize();
+        return false;
+    }
+
+    // Get the default audio output device
+    hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eConsole, &pDevice);
+    if (FAILED(hr))
+    {
+        pEnumerator->Release();
+        CoUninitialize();
+        return false;
+    }
+
+    // Activate the audio endpoint volume control interface
+    hr = pDevice->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, nullptr, reinterpret_cast<void **>(&pEndpointVolume));
+    if (FAILED(hr))
+    {
+        pDevice->Release();
+        pEnumerator->Release();
+        CoUninitialize();
+        return false;
+    }
+
+    BOOL isMuted = FALSE;
+    // Get the mute status
+    hr = pEndpointVolume->GetMute(&isMuted);
+    if (FAILED(hr))
+    {
+        pEndpointVolume->Release();
+        pDevice->Release();
+        pEnumerator->Release();
+        CoUninitialize();
+        return false;
+    }
+
+    // Release the COM objects
+    pEndpointVolume->Release();
+    pDevice->Release();
+    pEnumerator->Release();
+    CoUninitialize();
+
+    return (isMuted == TRUE);
+}
+
+void MuteSystemAudio()
+{
+    CoInitialize(nullptr);
+
+    IMMDeviceEnumerator *pEnumerator = nullptr;
+    IMMDevice *pDevice = nullptr;
+    IAudioEndpointVolume *pEndpointVolume = nullptr;
+
+    // Create the device enumerator
+    HRESULT hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
+    if (FAILED(hr))
+    {
+        CoUninitialize();
+        return;
+    }
+
+    // Get the default audio output device
+    hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eConsole, &pDevice);
+    if (FAILED(hr))
+    {
+        pEnumerator->Release();
+        CoUninitialize();
+        return;
+    }
+
+    // Activate the audio endpoint volume control interface
+    hr = pDevice->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, nullptr, reinterpret_cast<void **>(&pEndpointVolume));
+    if (FAILED(hr))
+    {
+        pDevice->Release();
+        pEnumerator->Release();
+        CoUninitialize();
+        return;
+    }
+
+    // Mute the system audio
+    hr = pEndpointVolume->SetMute(TRUE, nullptr);
+    if (FAILED(hr))
+    {
+        pEndpointVolume->Release();
+        pDevice->Release();
+        pEnumerator->Release();
+        CoUninitialize();
+        return;
+    }
+
+    // Release the COM objects
+    pEndpointVolume->Release();
+    pDevice->Release();
+    pEnumerator->Release();
+    CoUninitialize();
+}
+
+void UnmuteSystemAudio()
+{
+    CoInitialize(nullptr);
+
+    IMMDeviceEnumerator *pEnumerator = nullptr;
+    IMMDevice *pDevice = nullptr;
+    IAudioEndpointVolume *pEndpointVolume = nullptr;
+
+    // Create the device enumerator
+    HRESULT hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), reinterpret_cast<void **>(&pEnumerator));
+    if (FAILED(hr))
+    {
+        CoUninitialize();
+        return;
+    }
+
+    // Get the default audio output device
+    hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eConsole, &pDevice);
+    if (FAILED(hr))
+    {
+        pEnumerator->Release();
+        CoUninitialize();
+        return;
+    }
+
+    // Activate the audio endpoint volume control interface
+    hr = pDevice->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, nullptr, reinterpret_cast<void **>(&pEndpointVolume));
+    if (FAILED(hr))
+    {
+        pDevice->Release();
+        pEnumerator->Release();
+        CoUninitialize();
+        return;
+    }
+
+    // Unmute the system audio
+    hr = pEndpointVolume->SetMute(FALSE, nullptr);
+    if (FAILED(hr))
+    {
+        pEndpointVolume->Release();
+        pDevice->Release();
+        pEnumerator->Release();
+        CoUninitialize();
+        return;
+    }
+
+    // Release the COM objects
+    pEndpointVolume->Release();
+    pDevice->Release();
+    pEnumerator->Release();
+    CoUninitialize();
+}
+
 int main(int argc, char *argv[])
 {
     if (argc < 2)
@@ -128,6 +290,19 @@ int main(int argc, char *argv[])
 
         SetSystemVolume(static_cast<float>(volumeLevel) / 100.0);
         std::cout << volumeLevel;
+    }
+    else if (command == "mute_status")
+    {
+        bool isMuted = IsSystemAudioMuted();
+        std::cout << (isMuted == FALSE ? "0" : "1");
+    }
+    else if (command == "mute")
+    {
+        MuteSystemAudio();
+    }
+    else if (command == "unmute")
+    {
+        UnmuteSystemAudio();
     }
     else
     {

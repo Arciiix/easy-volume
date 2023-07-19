@@ -17,9 +17,16 @@
   },
   "keywords": [
     "volume",
+    "level",
     "control",
     "loudness",
-    "speaker"
+    "speaker",
+    "windows",
+    "macos",
+    "linux",
+    "audio",
+    "alsa",
+    "electron"
   ],
   "author": "Arciiix",
   "license": "MIT",
@@ -35,7 +42,6 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "bl": "^6.0.3",
     "hazardous": "^0.3.0"
   }
 }

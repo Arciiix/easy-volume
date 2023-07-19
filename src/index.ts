@@ -2,6 +2,7 @@ import * as os from "os";
 import { PlatformImplementation, VolumeControl } from "./types";
 import { windows } from "./platforms/windows";
 import { darwin } from "./platforms/darwin";
+import { linux } from "./platforms/linux";
 
 const osType = os.type();
 
@@ -13,6 +14,9 @@ switch (osType.toLowerCase()) {
     break;
   case "darwin":
     universal = darwin;
+    break;
+  case "linux":
+    universal = linux;
     break;
   default:
     throw new Error(

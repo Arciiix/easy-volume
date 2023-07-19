@@ -7,6 +7,7 @@ export type ToggleMute = () => Promise<boolean>;
 export interface VolumeControl extends PlatformImplementation {
   /**
    * Toggle mute state
+   * @returns Current (new) mute state (true == muted, false == unmuted)
    */
   toggleMute: ToggleMute;
 }

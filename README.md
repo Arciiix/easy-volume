@@ -65,4 +65,11 @@ If any of the test fails or you're using another setup which isn't implemented h
 
 Feel free to give some ideas for future features by creating issues on the [GitHub repository](https://github.com/Arciiix/easy-volume).
 
+## Building
+To build the library, just run simple
+```bash
+npm run build
+```
+**IMPORTANT**: After building, be sure to copy ```src/platforms/windows/volume.exe``` into ```dist/platforms/windows/volume.exe```
+
 Made with ❤️ by [Artur Nowak](https://github.com/Arciiix)

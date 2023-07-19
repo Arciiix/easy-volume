@@ -61,7 +61,7 @@ You can test the library on your setup by running this command:
 ```bash
 npm test
 ```
-In any of the test fails or you're using another setup which isn't implemented here, feel free to create an issue or a pull request.
+If any of the test fails or you're using another setup which isn't implemented here, feel free to create an issue or a pull request.
 
 Feel free to give some ideas for future features by creating issues on the [GitHub repository](https://github.com/Arciiix/easy-volume).
 

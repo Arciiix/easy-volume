@@ -1,15 +1,17 @@
+import { dirname, join } from "path";
 import { execCommand } from "../../execCommand";
 import {
   GetVolumeError,
   PlatformImplementation,
   SetVolumeError,
 } from "../../types";
-import "hazardous";
-import { join } from "path";
 
 export const windows: PlatformImplementation = {
   getVolume: async () => {
-    const response = await execCommand(join(__dirname, "volume.exe"), ["get"]);
+    const response = await execCommand(
+      join(dirname(__filename), "volume.exe"),
+      ["get"]
+    );
 
     if (isNaN(parseInt(response)) || parseInt(response) === -1)
       throw new GetVolumeError();
@@ -18,24 +20,27 @@ export const windows: PlatformImplementation = {
   setVolume: async (val: number) => {
     if (val < 0 || val > 100) throw new SetVolumeError();
 
-    const response = await execCommand(join(__dirname, "volume.exe"), [
-      "set",
-      val.toString(),
-    ]);
+    const response = await execCommand(
+      join(dirname(__filename), "volume.exe"),
+
+      ["set", val.toString()]
+    );
 
     if (isNaN(parseInt(response)) || parseInt(response) === -1)
       throw new SetVolumeError();
   },
   getMute: async () => {
-    const response = await execCommand(join(__dirname, "volume.exe"), [
-      "mute_status",
-    ]);
+    const response = await execCommand(
+      join(dirname(__filename), "volume.exe"),
+
+      ["mute_status"]
+    );
 
     let isMuted = response !== "0";
     return isMuted;
   },
   setMute: async (isMuted: boolean) => {
-    await execCommand(join(__dirname, "volume.exe"), [
+    await execCommand(join(dirname(__filename), "volume.exe"), [
       isMuted ? "mute" : "unmute",
     ]);
   },

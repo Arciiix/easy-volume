@@ -10,13 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.windows = void 0;
+const path_1 = require("path");
 const execCommand_1 = require("../../execCommand");
 const types_1 = require("../../types");
-require("hazardous");
-const path_1 = require("path");
 exports.windows = {
     getVolume: () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, execCommand_1.execCommand)((0, path_1.join)(__dirname, "volume.exe"), ["get"]);
+        const response = yield (0, execCommand_1.execCommand)((0, path_1.join)((0, path_1.dirname)(__filename), "volume.exe"), ["get"]);
         if (isNaN(parseInt(response)) || parseInt(response) === -1)
             throw new types_1.GetVolumeError();
         return parseInt(response);
@@ -24,22 +23,17 @@ exports.windows = {
     setVolume: (val) => __awaiter(void 0, void 0, void 0, function* () {
         if (val < 0 || val > 100)
             throw new types_1.SetVolumeError();
-        const response = yield (0, execCommand_1.execCommand)((0, path_1.join)(__dirname, "volume.exe"), [
-            "set",
-            val.toString(),
-        ]);
+        const response = yield (0, execCommand_1.execCommand)((0, path_1.join)((0, path_1.dirname)(__filename), "volume.exe"), ["set", val.toString()]);
         if (isNaN(parseInt(response)) || parseInt(response) === -1)
             throw new types_1.SetVolumeError();
     }),
     getMute: () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, execCommand_1.execCommand)((0, path_1.join)(__dirname, "volume.exe"), [
-            "mute_status",
-        ]);
+        const response = yield (0, execCommand_1.execCommand)((0, path_1.join)((0, path_1.dirname)(__filename), "volume.exe"), ["mute_status"]);
         let isMuted = response !== "0";
         return isMuted;
     }),
     setMute: (isMuted) => __awaiter(void 0, void 0, void 0, function* () {
-        yield (0, execCommand_1.execCommand)((0, path_1.join)(__dirname, "volume.exe"), [
+        yield (0, execCommand_1.execCommand)((0, path_1.join)((0, path_1.dirname)(__filename), "volume.exe"), [
             isMuted ? "mute" : "unmute",
         ]);
     }),

@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/Arciiix/easy-volume"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The easiest way to get and control your system's volume is finally here",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "jest"
+    "test": "jest ./spec"
   },
   "keywords": [
     "volume",
@@ -42,6 +42,5 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "hazardous": "^0.3.0"
   }
 }

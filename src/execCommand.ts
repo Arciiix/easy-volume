@@ -1,5 +1,4 @@
 import { ExecException, exec } from "child_process";
-import "hazardous";
 
 export const execCommand = (cmd: string, args: string[]): Promise<string> =>
   new Promise((resolve, reject) => {

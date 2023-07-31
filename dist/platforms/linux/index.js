@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.linux = void 0;
-require("hazardous");
 const execCommand_1 = require("../../execCommand");
 const types_1 = require("../../types");
 exports.linux = {

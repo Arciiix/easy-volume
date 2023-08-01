@@ -5,11 +5,12 @@ import {
   PlatformImplementation,
   SetVolumeError,
 } from "../../types";
+import toElectronPath from "../../utils/toElectronPath";
 
 export const windows: PlatformImplementation = {
   getVolume: async () => {
     const response = await execCommand(
-      join(dirname(__filename), "volume.exe"),
+      toElectronPath(join(dirname(__filename), "volume.exe")),
       ["get"]
     );
 
@@ -21,7 +22,7 @@ export const windows: PlatformImplementation = {
     if (val < 0 || val > 100) throw new SetVolumeError();
 
     const response = await execCommand(
-      join(dirname(__filename), "volume.exe"),
+      toElectronPath(join(dirname(__filename), "volume.exe")),
 
       ["set", val.toString()]
     );
@@ -31,7 +32,7 @@ export const windows: PlatformImplementation = {
   },
   getMute: async () => {
     const response = await execCommand(
-      join(dirname(__filename), "volume.exe"),
+      toElectronPath(join(dirname(__filename), "volume.exe")),
 
       ["mute_status"]
     );
@@ -40,7 +41,7 @@ export const windows: PlatformImplementation = {
     return isMuted;
   },
   setMute: async (isMuted: boolean) => {
-    await execCommand(join(dirname(__filename), "volume.exe"), [
+    await execCommand(toElectronPath(join(dirname(__filename), "volume.exe")), [
       isMuted ? "mute" : "unmute",
     ]);
   },

@@ -76,4 +76,13 @@ npm run build
 ```
 **IMPORTANT**: After building, be sure to copy ```src/platforms/windows/volume.exe``` into ```dist/platforms/windows/volume.exe```
 
+## Creating own implementations
+If you're using a different setup and/or want to create your own implementation of the library, feel free to make a pull request.
+
+1. In ```src/platforms```, create a new directory with the name of your target platform.
+1. In your newly created directory, create index.ts file which exports an object of type ```PlatformImplementation``` (see its declaration in [```src/types.ts```](src/types.ts)).
+1. Create your custom implementation. Note: if you're calling some native modules or any files, make sure to surround your path with the ```toElectronPath``` function from [```src/utils/toElectronPath.ts```](src/utils/toElectronPath.ts).
+1. In the [```src/index.ts```](src/index.ts) file, add a special case to the ```switch``` statement with your platform, following the patterns in the file.
+1. Before creating the pull request, please test the library (see above for running tests).
+
 Made with ❤️ by [Artur Nowak](https://github.com/Arciiix)

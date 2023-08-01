@@ -3,7 +3,9 @@
 
 Controlling system volume level in Node.js **has never been easier**!
 
-This **cross-platform**, dependency-free library lets you **control and get the status of volume** in your system. **No matter what OS or what framework** (it works everywhere - as well as on regular Node.js and Electron), you don't have to worry about the compatibility and potential errors - this library will **handle it all**!
+This **cross-platform**, dependency-free library lets you **control and get the status of volume** in your system. **No matter what OS or what framework** (it works everywhere - as well as on regular Node.js and Electron - where they were tested), you don't have to worry about the compatibility and potential errors - this library will **handle it all.**
+
+Note that this library solves the Electron production-build specific problem with asar-packed files - other libraries similar to this, which have to call executable file or native module, don't work on Electron - **easy-volume, on the other hand, was designed (and tested) to work with Electron like a charm!**
 
 ## Usage
 ```typescript

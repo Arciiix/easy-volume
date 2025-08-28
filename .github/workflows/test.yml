@@ -24,12 +24,6 @@ jobs:
           - os: macos-latest
             node: 20.x
             allow_failure: false
-          - os: windows-latest
-            node: 18.x
-            allow_failure: true
-          - os: windows-latest
-            node: 20.x
-            allow_failure: true
 
     steps:
       - name: Checkout

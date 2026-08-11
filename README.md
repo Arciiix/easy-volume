@@ -1,3 +1,5 @@
+
+
 # easy-volume
 [![npm](https://img.shields.io/npm/dt/easy-volume.svg)](https://www.npmjs.com/package/easy-volume?activeTab=readme)
 
@@ -45,7 +47,7 @@ console.log(isMuted); // true
 * Either mute or unmute system audio
 * **Param** *isMuted*: Whether to mute or unmute the system audio
    
-```toggleMute() => Promise<void>```
+```toggleMute() => Promise<boolean>```
 * Toggle mute state
 * **Returns**: Current (new) mute state (true == muted, false == unmuted)
 
